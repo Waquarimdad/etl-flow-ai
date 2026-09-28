@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: etl-flow
+
+  datasource:
+    url: jdbc:mariadb://localhost:3306/springai
+    username: root
+    password: root
+    driver-class-name: org.mariadb.jdbc.Driver
+    
+  ai:
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY}
+    ollama:
+      base-url: http://localhost:11434
+
+    vectorstore:
+      mariadb:
+        initialize-schema: true
+        distance-type: cosine
+        dimensions: 1024
+logging:
+  level:
+    org:
+      springframework:
+        ai:
+          chat:
+            client:
+              advisor: DEBUG
+server:
+  port: 9191
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - metrics
+          - prometheus
